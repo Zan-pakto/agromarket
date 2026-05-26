@@ -119,13 +119,21 @@ class OrderRepository implements OrderRepositoryInterface
         $sellerOrdersCount = 0;
         $itemsSold = 0;
 
+        $monthlySales = [
+            'Jan' => 0, 'Feb' => 0, 'Mar' => 0, 'Apr' => 0, 'May' => 0, 'Jun' => 0, 
+            'Jul' => 0, 'Aug' => 0, 'Sep' => 0, 'Oct' => 0, 'Nov' => 0, 'Dec' => 0
+        ];
+
         foreach ($allOrders as $order) {
             $isSellerOrder = false;
+            $orderSellerRevenue = 0;
             if (is_array($order->items)) {
                 foreach ($order->items as $item) {
                     $product = Product::find($item['product_id'] ?? null);
                     if ($product && (string)$product->seller_id === (string)$sellerId) {
-                        $sellerRevenue += ($item['price'] * $item['quantity']);
+                        $amount = ($item['price'] * $item['quantity']);
+                        $sellerRevenue += $amount;
+                        $orderSellerRevenue += $amount;
                         $itemsSold += $item['quantity'];
                         $isSellerOrder = true;
                     }
@@ -133,6 +141,12 @@ class OrderRepository implements OrderRepositoryInterface
             }
             if ($isSellerOrder) {
                 $sellerOrdersCount++;
+                if ($order->created_at) {
+                    $month = $order->created_at->format('M');
+                    if (isset($monthlySales[$month])) {
+                        $monthlySales[$month] += $orderSellerRevenue;
+                    }
+                }
             }
         }
 
@@ -141,12 +155,13 @@ class OrderRepository implements OrderRepositoryInterface
         $outOfStock = $myProducts->where('quantity', '<=', 0)->count();
 
         return [
-            'revenue' => $sellerRevenue,
-            'ordersCount' => $sellerOrdersCount,
+            'total_sales' => $sellerRevenue,
+            'total_orders' => $sellerOrdersCount,
             'itemsSold' => $itemsSold,
             'totalProducts' => $totalProducts,
-            'outOfStock' => $outOfStock,
+            'low_stock_count' => $outOfStock,
             'products' => $myProducts,
+            'monthly_sales' => $monthlySales,
         ];
     }
 }

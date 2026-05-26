@@ -18,11 +18,6 @@ class DashboardController extends Controller
         }
 
         if ($user->isSeller()) {
-            // Check approval status
-            if ($user->status !== 'approved') {
-                Auth::logout();
-                return redirect()->route('login')->with('error', 'Your merchant store registration is currently pending administrator verification.');
-            }
             return app(SellerDashboardController::class)->index();
         }
 

@@ -59,7 +59,7 @@
             <!-- Hero Illustration Image -->
             <div class="lg:col-span-5 relative hidden lg:block">
                 <div class="relative w-full aspect-square rounded-[40px] overflow-hidden border-4 border-emerald-500/20 shadow-2xl shadow-emerald-950/50">
-                    <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&auto=format&fit=crop" 
+                    <img src="{{ asset('images/hero_field.png') }}" 
                          class="w-full h-full object-cover" 
                          alt="Beautiful Green Organic Agriculture Field">
                 </div>

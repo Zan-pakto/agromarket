@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 // Define custom dynamic base authenticatable class for MongoDB and standard SQL fallback
 if (!class_exists(\App\Models\AgroAuthenticatable::class)) {
-    if (class_exists(\MongoDB\Driver\Manager::class)) {
+    if (env('DB_CONNECTION') === 'mongodb' && class_exists(\MongoDB\Driver\Manager::class)) {
         class_alias(\MongoDB\Laravel\Auth\User::class, \App\Models\AgroAuthenticatable::class);
     } else {
         class_alias(\Illuminate\Foundation\Auth\User::class, \App\Models\AgroAuthenticatable::class);

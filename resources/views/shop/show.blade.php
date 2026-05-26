@@ -144,12 +144,10 @@
 
                 <!-- Submit review block -->
                 @auth
-                    @if(Auth::user()->isFarmer())
-                        <div class="bg-emerald-50/20 dark:bg-slate-900/50 p-6 rounded-3xl border dark:border-slate-700/60 space-y-6">
-                            <h3 class="text-sm font-bold text-slate-800 dark:text-white">Write Your Review</h3>
-                            <form action="{{ route('dashboard.review') }}" method="POST" class="space-y-4">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <div class="bg-emerald-50/20 dark:bg-slate-900/50 p-6 rounded-3xl border dark:border-slate-700/60 space-y-6">
+                        <h3 class="text-sm font-bold text-slate-800 dark:text-white">Write Your Review</h3>
+                        <form action="{{ route('reviews.store', $product->id) }}" method="POST" class="space-y-4">
+                            @csrf
                                 
                                 <!-- Stars select -->
                                 <div class="flex items-center space-x-4" x-data="{ activeStar: 5 }">
@@ -177,11 +175,10 @@
                                 </button>
                             </form>
                         </div>
-                    @endif
                 @else
                     <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 text-center border border-dashed dark:border-slate-700">
                         <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                            Please <a href="{{ route('login') }}" class="text-emerald-500 font-bold underline">Login</a> as a farmer to rate and write reviews.
+                            Please <a href="{{ route('login') }}" class="text-emerald-500 font-bold underline">Login</a> to rate and write reviews.
                         </p>
                     </div>
                 @endauth

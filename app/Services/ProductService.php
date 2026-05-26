@@ -28,9 +28,8 @@ class ProductService
             }
         }
 
-        // If no images uploaded, use a fallback agriculture themed placeholder
         if (empty($imagePaths)) {
-            $imagePaths[] = 'https://images.unsplash.com/photo-1593113598332-cd288d649433?w=500&auto=format&fit=crop';
+            $imagePaths[] = asset('images/product_placeholder.png');
         }
 
         $data['images'] = $imagePaths;

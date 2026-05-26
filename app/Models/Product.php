@@ -52,7 +52,7 @@ class Product extends BaseModel
         if (is_array($this->images) && count($this->images) > 0) {
             return $this->images[0];
         }
-        return 'https://images.unsplash.com/photo-1593113598332-cd288d649433?w=500&auto=format&fit=crop'; // Default high-quality placeholder
+        return asset('images/product_placeholder.png'); // Default high-quality placeholder
     }
 
     public function getStockStatus(): string
@@ -64,5 +64,15 @@ class Product extends BaseModel
             return 'Low Stock (' . $this->quantity . ' left)';
         }
         return 'In Stock';
+    }
+
+    public function updateRatings()
+    {
+        $avg = $this->reviews()->avg('rating');
+        $count = $this->reviews()->count();
+
+        $this->ratings_avg = $avg ? round($avg, 1) : 0;
+        $this->ratings_count = $count;
+        $this->save();
     }
 }

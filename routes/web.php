@@ -8,13 +8,9 @@ use App\Http\Controllers\FarmerDashboardController;
 use App\Http\Controllers\SellerDashboardController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
 
 // 1. Public Marketplace Catalog Routes
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
@@ -43,6 +39,9 @@ Route::middleware(['auth'])->group(function () {
     
     // Wishlist AJax toggler
     Route::post('/wishlist/toggle/{productId}', [LandingPageController::class, 'toggleWishlist'])->name('wishlist.toggle');
+
+    // Product Reviews
+    Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
     // Secure checkout
     Route::get('/checkout', [OrderController::class, 'checkout'])->name('orders.checkout');

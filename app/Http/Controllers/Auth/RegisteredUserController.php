@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'address' => ['nullable', 'string', 'max:500'],
         ]);
 
-        $status = $request->role === 'seller' ? 'pending' : 'approved';
+        $status = 'approved';
 
         $user = User::create([
             'name' => $request->name,
@@ -55,10 +55,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        // Redirect based on role and status
-        if ($user->role === 'seller' && $user->status === 'pending') {
-            return redirect()->route('dashboard')->with('status', 'registration-pending');
-        }
+        // Registration complete, redirect to dashboard
 
         return redirect(route('dashboard', absolute: false));
     }

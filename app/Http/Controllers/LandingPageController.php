@@ -29,21 +29,21 @@ class LandingPageController extends Controller
                 'name' => 'Rajesh Kumar',
                 'role' => 'Organic Farmer, Punjab',
                 'feedback' => 'AgroMarket has transformed how I source seeds. The high-germination organic tomato seeds resulted in a 30% yield boost this season!',
-                'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop',
+                'avatar' => asset('images/avatar_rajesh.png'),
                 'rating' => 5
             ],
             [
                 'name' => 'Savitri Devi',
                 'role' => 'Horticulturist, Karnataka',
                 'feedback' => 'I ordered a complete drip irrigation kit. The price was 20% lower than my local retail store, and delivery was exceptionally fast.',
-                'avatar' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop',
+                'avatar' => asset('images/avatar_savitri.png'),
                 'rating' => 5
             ],
             [
                 'name' => 'Vikram Singh',
                 'role' => 'Wheat Grower, Haryana',
                 'feedback' => 'Buying high-grade fertilizers and tools is now just a tap away. The cash-on-delivery option gives me ultimate peace of mind.',
-                'avatar' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop',
+                'avatar' => asset('images/avatar_vikram.png'),
                 'rating' => 4
             ]
         ];
