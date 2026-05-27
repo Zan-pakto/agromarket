@@ -8,6 +8,8 @@ use App\Models\Wishlist;
 use App\Repositories\Contracts\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactFormMail;
 
 class LandingPageController extends Controller
 {
@@ -114,6 +116,20 @@ class LandingPageController extends Controller
     public function contact()
     {
         return view('pages.contact');
+    }
+
+    public function submitContact(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ]);
+
+        Mail::to(config('mail.from.address'))->send(new ContactFormMail($validated));
+
+        return back()->with('success', 'Thank you! Your support ticket has been recorded. Our team will contact you back shortly.');
     }
 
     public function faq()

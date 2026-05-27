@@ -20,6 +20,7 @@ Route::get('/shop/product/{id}', [LandingPageController::class, 'show'])->name('
 // Static info pages
 Route::get('/about', [LandingPageController::class, 'about'])->name('about');
 Route::get('/contact', [LandingPageController::class, 'contact'])->name('contact');
+Route::post('/contact', [LandingPageController::class, 'submitContact'])->name('contact.submit');
 Route::get('/faq', [LandingPageController::class, 'faq'])->name('faq');
 
 // 2. Shopping Cart Routes

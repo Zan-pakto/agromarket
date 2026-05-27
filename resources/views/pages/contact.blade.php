@@ -75,43 +75,52 @@
             </div>
 
             <!-- Right Side: Contact Form -->
-            <div class="lg:col-span-7 bg-white dark:bg-slate-800 rounded-[35px] border border-slate-100 dark:border-slate-700/60 shadow-xl p-8 lg:p-10 text-left space-y-6" x-data="{ success: false }">
+            <div class="lg:col-span-7 bg-white dark:bg-slate-800 rounded-[35px] border border-slate-100 dark:border-slate-700/60 shadow-xl p-8 lg:p-10 text-left space-y-6">
                 <h3 class="text-sm font-bold text-slate-800 dark:text-white pb-3 border-b dark:border-slate-700/60">Send Us a Direct Message</h3>
                 
-                <form @submit.prevent="success = true" class="space-y-4">
+                @if(session('success'))
+                    <div class="p-4 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 rounded-xl text-xs font-semibold mb-4">
+                        <i class="fa-solid fa-circle-check mr-1.5"></i> {{ session('success') }}
+                    </div>
+                @endif
+                
+                @if($errors->any())
+                    <div class="p-4 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 rounded-xl text-xs font-semibold mb-4">
+                        <i class="fa-solid fa-triangle-exclamation mr-1.5"></i> Please check your inputs and try again.
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('contact.submit') }}" class="space-y-4">
+                    @csrf
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-1">
                             <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Full Name</label>
-                            <input type="text" required placeholder="John Doe" 
+                            <input type="text" name="name" required placeholder="John Doe" value="{{ old('name') }}"
                                    class="w-full text-xs bg-slate-50 dark:bg-slate-900 border dark:border-slate-700 rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 text-slate-800 dark:text-white font-semibold">
                         </div>
                         <div class="space-y-1">
                             <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Email Address</label>
-                            <input type="email" required placeholder="john@doe.com" 
+                            <input type="email" name="email" required placeholder="john@doe.com" value="{{ old('email') }}"
                                    class="w-full text-xs bg-slate-50 dark:bg-slate-900 border dark:border-slate-700 rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 text-slate-800 dark:text-white font-semibold">
                         </div>
                     </div>
 
                     <div class="space-y-1">
                         <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Subject Description</label>
-                        <input type="text" required placeholder="e.g. Order Tracking ID query" 
+                        <input type="text" name="subject" required placeholder="e.g. Order Tracking ID query" value="{{ old('subject') }}"
                                class="w-full text-xs bg-slate-50 dark:bg-slate-900 border dark:border-slate-700 rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 text-slate-800 dark:text-white font-semibold">
                     </div>
 
                     <div class="space-y-1">
                         <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Message details</label>
-                        <textarea rows="4" required placeholder="State your requirements, order code, or supplier issue in full..." 
-                                  class="w-full text-xs bg-slate-50 dark:bg-slate-900 border dark:border-slate-700 rounded-xl px-3 py-2 focus:outline-none focus:border-emerald-500 text-slate-800 dark:text-white font-semibold"></textarea>
+                        <textarea name="message" rows="4" required placeholder="State your requirements, order code, or supplier issue in full..." 
+                                  class="w-full text-xs bg-slate-50 dark:bg-slate-900 border dark:border-slate-700 rounded-xl px-3 py-2 focus:outline-none focus:border-emerald-500 text-slate-800 dark:text-white font-semibold">{{ old('message') }}</textarea>
                     </div>
 
                     <button type="submit" 
                             class="px-8 py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs uppercase rounded-xl shadow-md transition-all active:scale-95">
                         Send Message Support
                     </button>
-
-                    <div x-show="success" x-transition class="p-4 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 rounded-xl text-xs font-semibold mt-4" style="display: none;">
-                        <i class="fa-solid fa-circle-check mr-1.5"></i> Thank you! Your support ticket has been recorded. Our team will contact you back shortly.
-                    </div>
                 </form>
             </div>
 
