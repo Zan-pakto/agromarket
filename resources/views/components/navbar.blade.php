@@ -127,8 +127,10 @@
                             isDark = !isDark; 
                             if (isDark) { 
                                 document.documentElement.classList.add('dark'); 
+                                localStorage.setItem('theme', 'dark');
                             } else { 
                                 document.documentElement.classList.remove('dark'); 
+                                localStorage.setItem('theme', 'light');
                             }
                         " 
                         class="p-2 rounded-xl text-slate-500 hover:text-emerald-500">

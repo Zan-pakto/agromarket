@@ -62,6 +62,13 @@
                     <i class="fa-solid fa-user-gear w-5 text-center"></i>
                     <span>Account Settings</span>
                 </button>
+
+                <button @click="currentTab = 'become-seller'" 
+                        :class="currentTab === 'become-seller' ? 'bg-emerald-500 text-white font-bold' : 'text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-slate-700/50'"
+                        class="w-full text-left px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center space-x-2.5">
+                    <i class="fa-solid fa-store w-5 text-center"></i>
+                    <span>Become a Seller</span>
+                </button>
             </nav>
 
             <!-- Dashboard Content Screens -->
@@ -266,6 +273,82 @@
                                     class="px-6 py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl font-bold text-xs uppercase tracking-wider shadow-md transition-all active:scale-95">
                                 Save Profile Credentials
                             </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tab: Become a Seller -->
+                <div x-show="currentTab === 'become-seller'" class="space-y-6" style="display: none;">
+                    <div class="bg-white dark:bg-slate-800 rounded-[35px] border border-slate-100 dark:border-slate-700/60 shadow-xl p-8 lg:p-10 space-y-6 text-left relative overflow-hidden">
+                        <div class="absolute -top-12 -left-12 w-64 h-64 bg-emerald-500/5 rounded-full blur-xl"></div>
+                        <div class="absolute -bottom-12 -right-12 w-64 h-64 bg-emerald-500/5 rounded-full blur-xl"></div>
+                        
+                        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b dark:border-slate-700/60">
+                            <div class="space-y-2">
+                                <span class="inline-block px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/45 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-wider">Opportunity awaits</span>
+                                <h3 class="text-xl font-black text-slate-800 dark:text-white">Start Selling on AgroMarket</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Convert your profile to a Seller Account and reach thousands of buyers daily.</p>
+                            </div>
+                            <div class="shrink-0 text-emerald-500 text-5xl">
+                                <i class="fa-solid fa-store"></i>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+                            <div class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-2xl border dark:border-slate-700/50 space-y-2">
+                                <span class="text-emerald-500 font-bold"><i class="fa-solid fa-chart-pie mr-2"></i>Lower Fees</span>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-semibold">Keep 95% of your earnings with flat transparent platform commission rates.</p>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-2xl border dark:border-slate-700/50 space-y-2">
+                                <span class="text-emerald-500 font-bold"><i class="fa-solid fa-truck-fast mr-2"></i>Agro Logistics</span>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-semibold">Get shipping and inventory support integrated with local warehouses.</p>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-2xl border dark:border-slate-700/50 space-y-2">
+                                <span class="text-emerald-500 font-bold"><i class="fa-solid fa-shield-halved mr-2"></i>Instant Trust</span>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-semibold">Approved sellers receive verification badges to build buyer confidence.</p>
+                            </div>
+                        </div>
+
+                        <form action="{{ route('dashboard.become-seller') }}" method="POST" class="space-y-6 relative z-10">
+                            @csrf
+                            
+                            <div class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-4 flex items-start space-x-3 text-xs text-amber-800 dark:text-amber-300">
+                                <i class="fa-solid fa-triangle-exclamation text-base shrink-0 mt-0.5"></i>
+                                <div class="leading-relaxed">
+                                    <strong class="font-bold block mb-1">Important: Seller Application Guidelines</strong>
+                                    Upon submission, your account will be placed under administrator review. You will temporarily lose farmer dashboard capabilities while your application is processed. To be approved, please ensure your phone and physical address are fully populated and accurate.
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <!-- Phone -->
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Business Phone Line</label>
+                                    <input type="text" name="phone" value="{{ old('phone', $user->phone) }}" required 
+                                           class="w-full text-xs bg-slate-50 dark:bg-slate-900 border dark:border-slate-700 rounded-2xl px-4 py-3 focus:outline-none focus:border-emerald-500 text-slate-800 dark:text-white font-semibold" placeholder="+1 (555) 000-0000">
+                                </div>
+                                <!-- Store Name / Business Name -->
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Store / Business Name</label>
+                                    <input type="text" name="store_name" value="{{ old('store_name', $user->name . ' Store') }}" required 
+                                           class="w-full text-xs bg-slate-50 dark:bg-slate-900 border dark:border-slate-700 rounded-2xl px-4 py-3 focus:outline-none focus:border-emerald-500 text-slate-800 dark:text-white font-semibold">
+                                </div>
+                            </div>
+
+                            <!-- Address -->
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Store Physical / Dispatch Address</label>
+                                <textarea name="address" rows="3" placeholder="Full street address, district, state..." required
+                                          class="w-full text-xs bg-slate-50 dark:bg-slate-900 border dark:border-slate-700 rounded-2xl px-4 py-3 focus:outline-none focus:border-emerald-500 text-slate-800 dark:text-white font-semibold">{{ old('address', $user->address) }}</textarea>
+                            </div>
+
+                            <div class="flex items-center justify-end pt-4">
+                                <button type="submit" 
+                                        class="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg transition-all active:scale-95 flex items-center space-x-2">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    <span>Submit Application for Approval</span>
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>

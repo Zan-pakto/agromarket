@@ -111,4 +111,53 @@ class FarmerDashboardController extends Controller
         Notification::where('user_id', Auth::id())->update(['is_read' => true]);
         return response()->json(['success' => true]);
     }
+
+    public function becomeSeller(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'phone' => 'required|string|max:20',
+            'store_name' => 'required|string|max:255',
+            'address' => 'required|string|max:500',
+        ]);
+
+        $user->name = $request->store_name;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->role = 'seller';
+        $user->status = 'pending';
+        $user->save();
+
+        Notification::create([
+            'user_id' => $user->id,
+            'title' => "Seller Application Submitted!",
+            'message' => "Your store application has been successfully submitted and is pending administrator review.",
+            'type' => 'seller_status',
+        ]);
+
+        return redirect()->route('dashboard')->with('success', 'Your seller application has been submitted successfully and is now pending admin approval.');
+    }
+
+    public function revertFarmer(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->isSeller() && !$user->isApproved()) {
+            $user->role = 'farmer';
+            $user->status = 'approved';
+            $user->save();
+
+            Notification::create([
+                'user_id' => $user->id,
+                'title' => "Switched back to Farmer Account",
+                'message' => "Your role has been updated back to Farmer. Your pending or rejected seller application has been removed.",
+                'type' => 'seller_status',
+            ]);
+
+            return redirect()->route('dashboard')->with('success', 'Your account has been switched back to a standard Farmer account.');
+        }
+
+        return redirect()->route('dashboard')->with('error', 'Only unapproved seller accounts can revert to farmer status.');
+    }
 }

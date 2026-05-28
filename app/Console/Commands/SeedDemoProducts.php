@@ -153,8 +153,7 @@ class SeedDemoProducts extends Command
                 'quantity' => 150,
                 'category_name' => 'Seeds',
                 'images' => [
-                    'https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?w=600&auto=format&fit=crop',
-                    'https://images.unsplash.com/photo-1595855759920-86582396756a?w=600&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=600&auto=format&fit=crop',
                 ],
                 'ratings_avg' => 4.8,
                 'ratings_count' => 12,
@@ -166,7 +165,7 @@ class SeedDemoProducts extends Command
                 'quantity' => 80,
                 'category_name' => 'Seeds',
                 'images' => [
-                    'https://images.unsplash.com/photo-1551754626-7da7a38786c6?w=600&auto=format&fit=crop',
+                    '/images/product_corn_seeds.png',
                 ],
                 'ratings_avg' => 4.5,
                 'ratings_count' => 8,
@@ -180,7 +179,7 @@ class SeedDemoProducts extends Command
                 'quantity' => 300,
                 'category_name' => 'Fertilizers',
                 'images' => [
-                    'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=600&auto=format&fit=crop',
+                    '/images/product_compost.png',
                 ],
                 'ratings_avg' => 4.7,
                 'ratings_count' => 15,
@@ -192,7 +191,7 @@ class SeedDemoProducts extends Command
                 'quantity' => 120,
                 'category_name' => 'Fertilizers',
                 'images' => [
-                    'https://images.unsplash.com/photo-1628352081506-83c43074d29e?w=600&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1574316071802-0d684efa7bf5?w=600&auto=format&fit=crop',
                 ],
                 'ratings_avg' => 4.2,
                 'ratings_count' => 6,
@@ -232,7 +231,7 @@ class SeedDemoProducts extends Command
                 'quantity' => 40,
                 'category_name' => 'Irrigation Equipment',
                 'images' => [
-                    'https://images.unsplash.com/photo-1563514223749-c5d02a19d83b?w=600&auto=format&fit=crop',
+                    '/images/product_irrigation.png',
                 ],
                 'ratings_avg' => 4.9,
                 'ratings_count' => 9,
@@ -246,7 +245,7 @@ class SeedDemoProducts extends Command
                 'quantity' => 12,
                 'category_name' => 'Tractors & Machinery',
                 'images' => [
-                    'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600&auto=format&fit=crop',
+                    '/images/product_weeder.png',
                 ],
                 'ratings_avg' => 4.7,
                 'ratings_count' => 4,
@@ -258,7 +257,7 @@ class SeedDemoProducts extends Command
                 'quantity' => 8,
                 'category_name' => 'Tractors & Machinery',
                 'images' => [
-                    'https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?w=600&auto=format&fit=crop',
+                    '/images/product_driller.png',
                 ],
                 'ratings_avg' => 4.3,
                 'ratings_count' => 3,

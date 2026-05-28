@@ -53,6 +53,10 @@ Route::middleware(['auth'])->group(function () {
     // Central Dashboard Redirect
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Become a Seller & Revert back to Farmer routes
+    Route::post('/dashboard/become-seller', [FarmerDashboardController::class, 'becomeSeller'])->name('dashboard.become-seller');
+    Route::post('/dashboard/revert-farmer', [FarmerDashboardController::class, 'revertFarmer'])->name('dashboard.revert-farmer');
+
     // Role-restricted Farmer Panel
     Route::middleware(['role:farmer'])->group(function () {
         Route::post('/dashboard/profile', [FarmerDashboardController::class, 'updateProfile'])->name('dashboard.profile');

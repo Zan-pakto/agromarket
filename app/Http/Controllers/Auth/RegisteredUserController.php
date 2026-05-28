@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'address' => ['nullable', 'string', 'max:500'],
         ]);
 
-        $status = 'approved';
+        $status = $request->role === 'seller' ? 'pending' : 'approved';
 
         $user = User::create([
             'name' => $request->name,

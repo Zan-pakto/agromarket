@@ -18,6 +18,9 @@ class DashboardController extends Controller
         }
 
         if ($user->isSeller()) {
+            if (!$user->isApproved()) {
+                return view('dashboards.seller-status', compact('user'));
+            }
             return app(SellerDashboardController::class)->index();
         }
 

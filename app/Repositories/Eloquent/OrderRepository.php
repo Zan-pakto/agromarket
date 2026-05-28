@@ -103,11 +103,17 @@ class OrderRepository implements OrderRepositoryInterface
 
         return [
             'totalSales' => $totalSales,
+            'total_sales' => $totalSales,
             'totalOrders' => $totalOrdersCount,
+            'total_orders' => $totalOrdersCount,
             'totalUsers' => $totalUsers,
+            'total_users' => $totalUsers,
             'totalProducts' => $totalProducts,
+            'total_products' => $totalProducts,
             'monthlySales' => $monthlySales,
+            'monthly_sales' => $monthlySales,
             'recentOrders' => Order::orderBy('created_at', 'desc')->limit(5)->get(),
+            'recent_orders' => Order::orderBy('created_at', 'desc')->limit(5)->get(),
         ];
     }
 
